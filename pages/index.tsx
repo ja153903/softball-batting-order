@@ -1,17 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { NextPage } from 'next';
 
 import { useStore } from '../store';
-
-const useHasHydrated = () => {
-  const [hasHydrated, setHasHydrated] = useState<boolean>(false);
-
-  useEffect(() => {
-    setHasHydrated(true);
-  }, []);
-
-  return hasHydrated;
-};
+import useHasHydrated from '../hooks/useHasHydrated';
 
 function Roster() {
   const players = useStore((state) => state.players);
