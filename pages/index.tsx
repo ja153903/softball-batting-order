@@ -14,8 +14,10 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex flex-col h-screen justify-between p-2">
-      <h1 className="text-lg font-bold">Lineup</h1>
-      <Roster />
+      <div className="flex flex-col gap-y-2">
+        <p className="text-lg font-bold">Lineup</p>
+        <Roster />
+      </div>
       <AddPlayerToRoster />
     </div>
   );
