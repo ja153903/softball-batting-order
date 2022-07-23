@@ -1,6 +1,7 @@
 import create, { StateCreator } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import produce from 'immer';
+
+import { withImmer } from './utils';
 
 export interface Player {
   id: string;
@@ -27,30 +28,28 @@ const createRosterSlice: StateCreator<
   ZustandMiddleware,
   [],
   RosterSlice
-> = (set) => ({
-  players: [],
-  addPlayer: (player: Player) =>
-    set(
-      produce((state: RosterSlice) => {
+> = (set) => {
+  const immerSet = withImmer(set);
+
+  return {
+    players: [],
+    addPlayer: (player: Player) =>
+      immerSet((state: RosterSlice) => {
         state.players.push(player);
-      })
-    ),
-  removePlayer: (id: string) =>
-    set(
-      produce((state: RosterSlice) => {
+      }),
+    removePlayer: (id: string) =>
+      immerSet((state: RosterSlice) => {
         state.players = state.players.filter(
           (player: Player) => player.id !== id
         );
-      })
-    ),
-  swapPlayers: (source: number, destination: number) =>
-    set(
-      produce((state: RosterSlice) => {
+      }),
+    swapPlayers: (source: number, destination: number) =>
+      immerSet((state: RosterSlice) => {
         const [removed] = state.players.splice(source, 1);
         state.players.splice(destination, 0, removed);
-      })
-    ),
-});
+      }),
+  };
+};
 
 export const useStore = create<RosterSlice>()(
   devtools(
