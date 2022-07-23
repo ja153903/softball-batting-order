@@ -12,7 +12,7 @@ function RosterCard({ player, index }: RosterCardProps) {
   const removePlayer = useStore((state) => state.removePlayer);
 
   return (
-    <Draggable key={player.name} draggableId={player.name} index={index}>
+    <Draggable key={player.id} draggableId={player.id} index={index}>
       {(provided) => (
         <div
           className="flex flex-row justify-between"
@@ -23,7 +23,7 @@ function RosterCard({ player, index }: RosterCardProps) {
           <span>
             {player.name} - {player.gender}
           </span>
-          <button onClick={() => removePlayer(player.name)}>X</button>
+          <button onClick={() => removePlayer(player.id)}>X</button>
         </div>
       )}
     </Draggable>

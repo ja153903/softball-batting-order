@@ -3,6 +3,7 @@ import { devtools, persist } from 'zustand/middleware';
 import produce from 'immer';
 
 export interface Player {
+  id: string;
   name: string;
   gender: string;
 }
@@ -34,11 +35,11 @@ const createRosterSlice: StateCreator<
         state.players.push(player);
       })
     ),
-  removePlayer: (name: string) =>
+  removePlayer: (id: string) =>
     set(
       produce((state: RosterSlice) => {
         state.players = state.players.filter(
-          (player: Player) => player.name !== name
+          (player: Player) => player.id !== id
         );
       })
     ),
