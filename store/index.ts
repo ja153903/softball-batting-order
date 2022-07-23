@@ -2,7 +2,7 @@ import create, { StateCreator } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import produce from 'immer';
 
-interface Player {
+export interface Player {
   name: string;
   gender: string;
 }

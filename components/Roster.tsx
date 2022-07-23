@@ -1,10 +1,10 @@
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import { useStore } from '~/store';
+import RosterCard from './RosterCard';
 
 function Roster() {
   const players = useStore((state) => state.players);
-  const removePlayer = useStore((state) => state.removePlayer);
   const swapPlayers = useStore((state) => state.swapPlayers);
 
   if (!players.length) {
@@ -25,25 +25,7 @@ function Roster() {
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {players.map((player, index) => (
-              <Draggable
-                key={player.name}
-                draggableId={player.name}
-                index={index}
-              >
-                {(provided) => (
-                  <div
-                    className="flex flex-row justify-between"
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                  >
-                    <span>
-                      {player.name} - {player.gender}
-                    </span>
-                    <button onClick={() => removePlayer(player.name)}>X</button>
-                  </div>
-                )}
-              </Draggable>
+              <RosterCard player={player} index={index} />
             ))}
             {provided.placeholder}
           </div>
